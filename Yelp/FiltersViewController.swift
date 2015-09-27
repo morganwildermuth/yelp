@@ -38,16 +38,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
 
+    var data: [NSArray]?
     var categories: [[String:String]]!
+    var sortByOptions: [String]!
     var switchStates = [Int: Bool]()
+    let HeaderViewIdentifier = "TableViewIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-
         //normally in initializer
         categories = yelpCategories()
+        sortByOptions = yelpSortByOptions()
+        data = [categories, sortByOptions]
         // Do any additional setup after loading the view.
     }
 
@@ -58,32 +62,65 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //since we manually set categories below, we know it will always have a value
-        return categories.count
+        return data![section].count
     }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-        cell.switchLabel.text = categories[indexPath.row]["name"]
+        switch indexPath.section {
+        case 0:
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+        case 1:
+            cell.switchLabel.text = sortByOptions[indexPath.row]
+        default:
+            cell.switchLabel.text = "No Switch Case"
+        }
         cell.delegate = self
-        
-        
-//        if switchStates[indexPath.row] != nil {
-//            cell.onSwitch.on = switchStates[indexPath.row]!
-//        } else {
-//            cell.onSwitch.on = false
-//        }
-        
-        // short hand ternary operator, same as above
         cell.onSwitch.on = switchStates[indexPath.row] ?? false
         return cell
         
     }
     
-    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
-        let indexPath = tableView.indexPathForCell(switchCell)!
-        switchStates[indexPath.row] = value
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderTableViewCell") as! HeaderTableViewCell
+        switch section {
+        case 0:
+            headerCell.headerLabel.text = "Category"
+        case 1:
+            headerCell.headerLabel.text = "Sort By"
+        default:
+            headerCell.headerLabel.text = "Other"
+        }
+        return headerCell
     }
     
+    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        switch indexPath.section {
+        case 0:
+            let indexPath = tableView.indexPathForCell(switchCell)!
+        case 1:
+            let indexPath = tableView.indexPathForCell(switchCell)!
+        default:
+        }
+        let indexPath = tableView.indexPathForCell(switchCell)!
+        switchStates[indexPath.row] = value
+//        let indexPath = tableView.indexPathForCell(switchCell)!
+//        switchStates[indexPath.row] = value
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func distanceOptions() -> [Double] {
+        return [0.3, 1, 5, 20]
+    }
+    
+    func yelpSortByOptions() -> [String] {
+        return ["Best Match", "Distance", "Highest Rated"]
+    }
+
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code" : "afghani"],
             ["name" : "African", "code": "african"],

@@ -30,6 +30,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: [], deals: false) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
+            print("view loaded")
+            print(self.businesses.count)
             self.tableView.reloadData()
         }
     }
@@ -85,8 +87,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             cell.business = filteredBusinesses![indexPath.row]
         } else {
             cell.business = businesses[indexPath.row]
-        }
-       
+        }     
         return cell
     }
     

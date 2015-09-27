@@ -168,37 +168,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oX3-bJ-d6q">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oX3-bJ-d6q">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="132" id="pvx-R9-Mk3" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="132"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="75" id="pvx-R9-Mk3" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pvx-R9-Mk3" id="Dr8-nE-ZXJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="131"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFd-6w-WFT">
-                                                    <rect key="frame" x="8" y="55" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFd-6w-WFT">
+                                                    <rect key="frame" x="8" y="21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="900-ei-E2U">
-                                                    <rect key="frame" x="543" y="50" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="900-ei-E2U">
+                                                    <rect key="frame" x="543" y="16" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="900-ei-E2U" firstAttribute="centerY" secondItem="Dr8-nE-ZXJ" secondAttribute="centerY" id="Czs-3s-iDU"/>
                                                 <constraint firstItem="RFd-6w-WFT" firstAttribute="leading" secondItem="Dr8-nE-ZXJ" secondAttribute="leading" constant="8" id="D1x-Ua-M4B"/>
                                                 <constraint firstAttribute="trailing" secondItem="900-ei-E2U" secondAttribute="trailing" constant="8" id="JDo-65-jRu"/>
+                                                <constraint firstAttribute="bottom" secondItem="900-ei-E2U" secondAttribute="bottom" constant="8" id="Pzz-a6-yUJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="RFd-6w-WFT" secondAttribute="bottom" constant="8" id="QCX-9Z-Zhv"/>
+                                                <constraint firstItem="RFd-6w-WFT" firstAttribute="top" secondItem="Dr8-nE-ZXJ" secondAttribute="top" constant="8" id="UYV-8M-DQx"/>
+                                                <constraint firstItem="900-ei-E2U" firstAttribute="top" secondItem="Dr8-nE-ZXJ" secondAttribute="top" constant="8" id="fSU-kh-grz"/>
                                                 <constraint firstItem="RFd-6w-WFT" firstAttribute="centerY" secondItem="Dr8-nE-ZXJ" secondAttribute="centerY" id="m0f-Rm-0Rt"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="QCX-9Z-Zhv"/>
+                                                    <exclude reference="UYV-8M-DQx"/>
+                                                    <exclude reference="Pzz-a6-yUJ"/>
+                                                    <exclude reference="fSU-kh-grz"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="onSwitch" destination="900-ei-E2U" id="M05-wA-x6G"/>
                                             <outlet property="switchLabel" destination="RFd-6w-WFT" id="4EY-oR-eX4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderTableViewCell" id="zBo-ay-K3f" customClass="HeaderTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="167" width="600" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zBo-ay-K3f" id="bKh-vA-ITE">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-HL-DTC">
+                                                    <rect key="frame" x="265" y="26" width="56" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SGO-HL-DTC" firstAttribute="centerY" secondItem="bKh-vA-ITE" secondAttribute="centerY" id="ITq-Uh-VJJ"/>
+                                                <constraint firstItem="SGO-HL-DTC" firstAttribute="centerX" secondItem="bKh-vA-ITE" secondAttribute="centerX" id="UdJ-Be-l6q"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="headerLabel" destination="SGO-HL-DTC" id="MXY-C9-sID"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -272,7 +307,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pj9-cK-1hD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3062" y="357"/>
+            <point key="canvasLocation" x="3142" y="357"/>
         </scene>
     </scenes>
 </document>
