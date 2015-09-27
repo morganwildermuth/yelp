@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,6 +20,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="196" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="J74-7b-7s8">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableFooterView" contentMode="redraw" id="xvY-xl-mfE">
+                                    <rect key="frame" x="0.0" y="288" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="196" id="d4k-Mt-9AN" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="196"/>
@@ -126,7 +131,7 @@
                             <constraint firstAttribute="trailing" secondItem="J74-7b-7s8" secondAttribute="trailing" id="czI-dy-IRS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="7aB-09-nQk">
+                    <navigationItem key="navigationItem" id="7aB-09-nQk">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="XjW-IU-MwK">
                             <connections>
                                 <segue destination="HaJ-qK-H3K" kind="presentation" id="rq8-Is-YTc"/>
@@ -134,6 +139,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="xvY-xl-mfE" id="DeL-R6-9MH"/>
                         <outlet property="tableView" destination="J74-7b-7s8" id="yFx-Ty-eU8"/>
                     </connections>
                 </viewController>

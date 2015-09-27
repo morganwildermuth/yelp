@@ -21,6 +21,7 @@ enum YelpSortMode: Int {
 class YelpClient: BDBOAuth1RequestOperationManager {
     var accessToken: String!
     var accessSecret: String!
+    var categoryList: [Category]?
     
     class var sharedInstance : YelpClient {
         struct Static {
