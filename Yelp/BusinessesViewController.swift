@@ -28,7 +28,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         // necessary so scroll will be estimated
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: [], deals: false) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: .Distance, radius: Int(), categories: [], deals: false) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             print("view loaded")
             print(self.businesses.count)
@@ -116,12 +116,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         let categories = filters["categories"] as? [String]
         let searchBy = filters["searchBy"] as? Int
+        let radius: Int?
+        var radiusInMiles = filters["radius"] as? Float
         var yelpSortMode: YelpSortMode?
         if let yelpSortModeRawValue = searchBy {
             yelpSortMode = YelpSortMode(rawValue: yelpSortModeRawValue)
         }
-        
-        Business.searchWithTerm("Restaurant", sort: yelpSortMode, categories: categories, deals: nil)
+        if let radiusInMiles = radiusInMiles {
+            radius = Int(radiusInMiles * 1609.344)
+        } else {
+            radius = nil
+        }
+
+        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: nil)
             {(businesses: [Business]!, error: NSError!) -> Void in
                 self.businesses = businesses
                 self.tableView.reloadData()
