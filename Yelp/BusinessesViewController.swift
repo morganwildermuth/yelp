@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GBInfiniteScrollView
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate{
 
