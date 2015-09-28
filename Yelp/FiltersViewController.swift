@@ -25,17 +25,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func onSearchButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
-        var filters = [[String : AnyObject]]()
-//        for (row, isSelected) in switchStates {
-//            var selectedCategories = [String]()
-//            if isSelected {
-//                selectedCategories.append(categories[row]["code"]!)
-//            }
-//            if selectedCategories.count > 0 {
-//                filters["categories"] = selectedCategories
-//            }
-//        }
-        delegate?.filtersViewController?(self, didUpdateFilters: filters[0])
+//        var filters = [[String : AnyObject]]()
+        var filters = [String : AnyObject]()
+        for option in switchStates{
+            for (row, isSelected) in option {
+                var selectedCategories = [String]()
+                if isSelected {
+                    selectedCategories.append(categories[row]["code"]!)
+                }
+                if selectedCategories.count > 0 {
+                    filters["categories"] = selectedCategories
+                }
+            }
+        }
+        delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
 
     var data: [NSArray]?
@@ -97,7 +100,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
-
         switch indexPath.section {
         case 0:
             switchStates[0][indexPath.row] = value
