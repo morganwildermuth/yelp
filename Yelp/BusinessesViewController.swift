@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import CCInfiniteScrolling
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate{
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate, UIScrollViewDelegate{
 
     var businesses: [Business]!
     var filteredBusinesses: [Business]?
+    var categories: [String]?
+    var searchBy: Int?
+    var dealsStatus: Bool?
+    var radius: Int?
+    var radiusInMiles: Float?
+    var yelpSortMode = YelpSortMode.BestMatched
+    var offset = 0
+    var limit = 20
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -25,13 +34,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         searchBar.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.addBottomInfiniteScrollingWithActionHandler({
+            if self.businesses.count != 40 || (self.yelpSortMode.rawValue == 0) {
+                self.loadMoreResults()
+            } else {
+                self.tableView.infiniteScrollingDisabled = true
+            }
+        })
         // necessary so scroll will be estimated
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm("Restaurants", sort: .Distance, radius: Int(), categories: [], deals: false) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: .Distance, radius: Int(), categories: [], deals: false, offset: Int(), limit: self.limit) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
-            print("view loaded")
-            print(self.businesses.count)
             self.tableView.reloadData()
         }
     }
@@ -114,15 +128,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        let categories = filters["categories"] as? [String]
-        let searchBy = filters["searchBy"] as? Int
-        let dealsStatus = filters["dealsStatus"] as? Bool
-        var radiusInMiles = filters["radius"] as? Float
+        categories = filters["categories"] as? [String]
+        searchBy = filters["searchBy"] as? Int
+        dealsStatus = filters["dealsStatus"] as? Bool
+        let radiusInMiles = filters["radius"] as? Float
         
-        let radius: Int?
-        var yelpSortMode: YelpSortMode?
         if let yelpSortModeRawValue = searchBy {
-            yelpSortMode = YelpSortMode(rawValue: yelpSortModeRawValue)
+            yelpSortMode = YelpSortMode(rawValue: yelpSortModeRawValue)!
         }
         if let radiusInMiles = radiusInMiles {
             radius = Int(radiusInMiles * 1609.344)
@@ -130,11 +142,21 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             radius = nil
         }
 
-        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: dealsStatus)
+        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: dealsStatus, offset: offset, limit: limit)
             {(businesses: [Business]!, error: NSError!) -> Void in
                 self.businesses = businesses
                 self.tableView.reloadData()
         }
+    }
+    
+    func loadMoreResults(){
+        self.offset += 20
+        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: dealsStatus, offset: self.offset, limit: self.limit)
+            {(businesses: [Business]!, error: NSError!) -> Void in
+                let allBusinesses = self.businesses + businesses
+                self.businesses = allBusinesses
+                self.tableView.reloadData()
+            }
     }
     /*
     // MARK: - Navigation
