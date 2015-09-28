@@ -23,18 +23,25 @@ PODS:
   - BDBOAuth1Manager (1.5.0):
     - AFNetworking/NSURLConnection (~> 2.5.0)
     - AFNetworking/NSURLSession (~> 2.5.0)
-  - GBInfiniteScrollView (1.8):
-    - GBInfiniteScrollView/Core (= 1.8)
-  - GBInfiniteScrollView/Core (1.8)
+  - CCInfiniteScrolling (0.5.1):
+    - DProperty
+    - JRSwizzle
+    - UIView+TKGeometry
+  - DProperty (0.0.2)
+  - JRSwizzle (1.0)
+  - UIView+TKGeometry (0.2)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
-  - GBInfiniteScrollView (~> 1.6)
+  - CCInfiniteScrolling
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
   BDBOAuth1Manager: 2e28773b58f880fb36b5cd3efcf0b1fefbc78a99
-  GBInfiniteScrollView: aa8dc078cf1c86a10d65bfa4430c8cf324e18672
+  CCInfiniteScrolling: 90c3eb11449b180fd7ca23f89c2cd5960cbef850
+  DProperty: addcdd8aca31dd02d6dd6082a8862fb3b080d5b1
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  UIView+TKGeometry: bef0d7727753910d66d6fa51a3128ae6908047ef
 
 COCOAPODS: 0.38.2

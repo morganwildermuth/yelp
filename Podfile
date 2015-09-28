@@ -3,7 +3,7 @@ use_frameworks!
 
 pod 'AFNetworking'
 pod 'BDBOAuth1Manager'
-pod 'GBInfiniteScrollView', '~> 1.6'
+pod 'CCInfiniteScrolling'
 
 post_install do |installer|
     directory = installer.config.project_pods_root + 'BDBOAuth1Manager/BDBOAuth1Manager'
