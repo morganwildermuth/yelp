@@ -116,8 +116,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         let categories = filters["categories"] as? [String]
         let searchBy = filters["searchBy"] as? Int
-        let radius: Int?
+        let dealsStatus = filters["dealsStatus"] as? Bool
         var radiusInMiles = filters["radius"] as? Float
+        
+        let radius: Int?
         var yelpSortMode: YelpSortMode?
         if let yelpSortModeRawValue = searchBy {
             yelpSortMode = YelpSortMode(rawValue: yelpSortModeRawValue)
@@ -128,7 +130,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             radius = nil
         }
 
-        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: nil)
+        Business.searchWithTerm("Restaurant", sort: yelpSortMode, radius: radius, categories: categories, deals: dealsStatus)
             {(businesses: [Business]!, error: NSError!) -> Void in
                 self.businesses = businesses
                 self.tableView.reloadData()

@@ -45,6 +45,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                     if isSelected {
                         filters["radius"] = distanceOptions[row]
                     }
+                case 3:
+                    if isSelected {
+                        filters["dealsStatus"] = true
+                    }
                 default:
                     print("onSearchButton switch case failure")
                 }
@@ -56,7 +60,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var data: [NSArray]?
     var categories: [[String:String]]!
     var sortByOptions: [String]!
-    var switchStates = [[Int: Bool](), [Int: Bool](), [Int: Bool]()]
+    var dealsOptions: [String]!
+    var switchStates = [[Int: Bool](), [Int: Bool](), [Int: Bool](), [Int: Bool]()]
     var distanceOptions = [Float]()
     let HeaderViewIdentifier = "TableViewIdentifier"
     
@@ -68,7 +73,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         sortByOptions = yelpSortByOptions()
         distanceOptions = yelpDistanceOptions()
-        data = [categories, sortByOptions, distanceOptions]
+        dealsOptions = ["Deals"]
+        data = [categories, sortByOptions, distanceOptions, dealsOptions]
         // Do any additional setup after loading the view.
     }
 
@@ -92,6 +98,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.switchLabel.text = sortByOptions[indexPath.row]
         case 2:
             cell.switchLabel.text = String(distanceOptions[indexPath.row]) + " Miles"
+        case 3:
+            cell.switchLabel.text = String(dealsOptions[indexPath.row])
         default:
             cell.switchLabel.text = "No Switch Case"
         }
@@ -110,6 +118,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             headerCell.headerLabel.text = "Sort By"
         case 2:
             headerCell.headerLabel.text = "Radius"
+        case 3:
+            headerCell.headerLabel.text = "Offering a Deal"
         default:
             headerCell.headerLabel.text = "Other"
         }
@@ -125,13 +135,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             switchStates[1][indexPath.row] = value
         case 2:
             switchStates[2][indexPath.row] = value
+        case 3:
+            switchStates[3][indexPath.row] = value
         default:
             puts("switch cell function no indexPath.section")
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func yelpDistanceOptions() -> [Float] {
