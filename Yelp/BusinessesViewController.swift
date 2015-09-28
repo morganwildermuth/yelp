@@ -80,7 +80,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             filteredBusinesses = businesses.filter({
                 let currentBusiness = $0
                 if let currentBusinessName = currentBusiness.name {
-                    return (currentBusinessName.rangeOfString(searchText) != nil)
+                    return (currentBusinessName.lowercaseString.rangeOfString(searchText.lowercaseString) != nil)
                 } else {
                     return false
                 }
