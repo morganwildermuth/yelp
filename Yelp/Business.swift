@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class Business: NSObject {
+class Business: NSObject, MKAnnotation {
     let name: String?
     let address: String?
     let imageURL: NSURL?
@@ -16,10 +17,19 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: NSURL?
     let reviewCount: NSNumber?
+    var coordinate: CLLocationCoordinate2D
+
+    var title: String? {
+        return self.name!
+    }
+    
+    var subTitle: String{
+        return self.distance!
+    }
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
-        
+        coordinate = CLLocationCoordinate2D()
         let imageURLString = dictionary["image_url"] as? String
         if imageURLString != nil {
             imageURL = NSURL(string: imageURLString!)!

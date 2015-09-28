@@ -121,11 +121,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as! UINavigationController
-        let filtersViewController = navigationController.topViewController as! FiltersViewController
-        filtersViewController.delegate = self
-    }
+
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         categories = filters["categories"] as? [String]
@@ -158,6 +154,22 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 self.tableView.reloadData()
             }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationController = segue.destinationViewController as! UINavigationController
+        if (segue.identifier == "showFilterView"){
+            let filtersViewController = navigationController.topViewController as! FiltersViewController
+            filtersViewController.delegate = self
+        } else {
+            let mapVC = navigationController.topViewController as! MapViewController
+            if searchActive {
+                mapVC.businesses = self.filteredBusinesses
+            } else{
+                mapVC.businesses = self.businesses   
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

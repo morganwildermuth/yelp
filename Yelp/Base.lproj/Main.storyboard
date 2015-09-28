@@ -5,6 +5,45 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="YZJ-ik-qcc">
+            <objects>
+                <viewController id="ylv-60-QWx" customClass="MapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="16t-kv-T1k"/>
+                        <viewControllerLayoutGuide type="bottom" id="sB2-Ks-ycw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bcP-dg-Rjj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="f49-kn-71m">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="f49-kn-71m" secondAttribute="trailing" id="XS4-rY-Rke"/>
+                            <constraint firstItem="f49-kn-71m" firstAttribute="leading" secondItem="bcP-dg-Rjj" secondAttribute="leading" id="nvN-Mh-Gdx"/>
+                            <constraint firstItem="f49-kn-71m" firstAttribute="top" secondItem="16t-kv-T1k" secondAttribute="bottom" id="s0F-dY-MNz"/>
+                            <constraint firstItem="sB2-Ks-ycw" firstAttribute="top" secondItem="f49-kn-71m" secondAttribute="bottom" id="yuY-4q-pbT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZLG-kk-TlE">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="1mr-2w-ugm">
+                            <connections>
+                                <action selector="onBackTap:" destination="ylv-60-QWx" id="Ote-KA-FRr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="f49-kn-71m" id="kRm-HB-gc5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YBp-7p-dWj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3488" y="-315"/>
+        </scene>
         <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
@@ -138,7 +177,12 @@
                     <navigationItem key="navigationItem" id="7aB-09-nQk">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="XjW-IU-MwK">
                             <connections>
-                                <segue destination="HaJ-qK-H3K" kind="presentation" id="rq8-Is-YTc"/>
+                                <segue destination="HaJ-qK-H3K" kind="presentation" identifier="showFilterView" id="rq8-Is-YTc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map View" id="gGc-yj-jF2">
+                            <connections>
+                                <segue destination="kep-gq-uCY" kind="presentation" identifier="showMapView" id="gOX-4v-4f9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -308,6 +352,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pj9-cK-1hD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3142" y="357"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="koP-wM-lhw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kep-gq-uCY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QUy-I6-M92">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ylv-60-QWx" kind="relationship" relationship="rootViewController" id="szn-zP-WOb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bfk-aa-umQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2676" y="-315"/>
         </scene>
     </scenes>
 </document>
