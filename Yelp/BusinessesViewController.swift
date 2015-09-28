@@ -114,10 +114,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        print("filters view controller did update filters")
         let categories = filters["categories"] as? [String]
+        let searchBy = filters["searchBy"] as? Int
+        var yelpSortMode: YelpSortMode?
+        if let yelpSortModeRawValue = searchBy {
+            yelpSortMode = YelpSortMode(rawValue: yelpSortModeRawValue)
+        }
         
-        Business.searchWithTerm("Restaurant", sort: nil, categories: categories, deals: nil)
+        Business.searchWithTerm("Restaurant", sort: yelpSortMode, categories: categories, deals: nil)
             {(businesses: [Business]!, error: NSError!) -> Void in
                 self.businesses = businesses
                 self.tableView.reloadData()

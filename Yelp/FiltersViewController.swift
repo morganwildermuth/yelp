@@ -25,16 +25,24 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func onSearchButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
-//        var filters = [[String : AnyObject]]()
         var filters = [String : AnyObject]()
-        for option in switchStates{
-            for (row, isSelected) in option {
-                var selectedCategories = [String]()
-                if isSelected {
-                    selectedCategories.append(categories[row]["code"]!)
-                }
-                if selectedCategories.count > 0 {
-                    filters["categories"] = selectedCategories
+        for (index, options) in switchStates.enumerate(){
+            for (row, isSelected) in options {
+                switch index {
+                case 0:
+                    var selectedCategories = [String]()
+                    if isSelected {
+                        selectedCategories.append(categories[row]["code"]!)
+                    }
+                    if selectedCategories.count > 0 {
+                        filters["categories"] = selectedCategories
+                    }
+                case 1:
+                    if isSelected {
+                        filters["searchBy"] = row
+                    }
+                default:
+                    print("onSearchButton switch case failure")
                 }
             }
         }
