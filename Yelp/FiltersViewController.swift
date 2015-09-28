@@ -25,23 +25,23 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func onSearchButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
-        var filters = [String : AnyObject]()
-        for (row, isSelected) in switchStates {
-            var selectedCategories = [String]()
-            if isSelected {
-                selectedCategories.append(categories[row]["code"]!)
-            }
-            if selectedCategories.count > 0 {
-                filters["categories"] = selectedCategories
-            }
-        }
-        delegate?.filtersViewController?(self, didUpdateFilters: filters)
+        var filters = [[String : AnyObject]]()
+//        for (row, isSelected) in switchStates {
+//            var selectedCategories = [String]()
+//            if isSelected {
+//                selectedCategories.append(categories[row]["code"]!)
+//            }
+//            if selectedCategories.count > 0 {
+//                filters["categories"] = selectedCategories
+//            }
+//        }
+        delegate?.filtersViewController?(self, didUpdateFilters: filters[0])
     }
 
     var data: [NSArray]?
     var categories: [[String:String]]!
     var sortByOptions: [String]!
-    var switchStates = [Int: Bool]()
+    var switchStates = [[Int: Bool](), [Int: Bool]()]
     let HeaderViewIdentifier = "TableViewIdentifier"
     
     override func viewDidLoad() {
@@ -77,7 +77,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.switchLabel.text = "No Switch Case"
         }
         cell.delegate = self
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+        cell.onSwitch.on = switchStates[indexPath.section][indexPath.row] ?? false
         return cell
         
     }
@@ -96,17 +96,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        let indexPath = tableView.indexPathForCell(switchCell)!
+
         switch indexPath.section {
         case 0:
-            let indexPath = tableView.indexPathForCell(switchCell)!
+            switchStates[0][indexPath.row] = value
         case 1:
-            let indexPath = tableView.indexPathForCell(switchCell)!
+            switchStates[1][indexPath.row] = value
         default:
+            puts("switch cell function no indexPath.section")
         }
-        let indexPath = tableView.indexPathForCell(switchCell)!
-        switchStates[indexPath.row] = value
-//        let indexPath = tableView.indexPathForCell(switchCell)!
-//        switchStates[indexPath.row] = value
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

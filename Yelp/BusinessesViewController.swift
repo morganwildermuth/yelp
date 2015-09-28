@@ -114,6 +114,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        print("filters view controller did update filters")
         let categories = filters["categories"] as? [String]
         
         Business.searchWithTerm("Restaurant", sort: nil, categories: categories, deals: nil)
