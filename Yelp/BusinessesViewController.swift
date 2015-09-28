@@ -28,6 +28,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.offset = 0
         navigationItem.titleView = searchBar
         
         tableView.delegate = self
@@ -87,9 +88,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             })
             if filteredBusinesses!.count == 0{
                 searchActive = false;
+                self.offset = 0
             }
         } else {
             searchActive = false;
+            self.offset = 0
             filteredBusinesses = []
         }
         self.tableView.reloadData()
@@ -124,6 +127,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        self.offset = 0
         categories = filters["categories"] as? [String]
         searchBy = filters["searchBy"] as? Int
         dealsStatus = filters["dealsStatus"] as? Bool
@@ -156,6 +160,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        searchBar.text = ""
         let navigationController = segue.destinationViewController as! UINavigationController
         if (segue.identifier == "showFilterView"){
             let filtersViewController = navigationController.topViewController as! FiltersViewController
@@ -165,7 +170,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             if searchActive {
                 mapVC.businesses = self.filteredBusinesses
             } else{
-                mapVC.businesses = self.businesses   
+                mapVC.businesses = self.businesses
             }
         }
     }
